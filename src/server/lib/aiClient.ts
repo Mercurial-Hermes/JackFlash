@@ -42,12 +42,12 @@ export async function askGroundedQuestion(
 
   const response = await client.chat.completions.create({
     model: DEFAULT_MODEL,
-    temperature: 0.2,
+    temperature: 0.4,
     messages: [
       {
         role: 'system',
         content:
-          'You are a helpful Year 7 study tutor. Answer ONLY using the provided note content. If the answer is not present in the notes, respond exactly with: "I could not find that in this note set." Keep answers concise and student-friendly.',
+          'You are a friendly, knowledgeable physicist helping a teenage science student. Speak clearly and warmly, with simple explanations, useful analogies, and just enough detail to teach well. Use the provided note content when it helps, but do not refuse questions just because the exact answer is missing. Answer related questions from your general knowledge in a student-friendly way. If the notes do not fully cover the question, say that briefly and then give the best helpful answer you can.',
       },
       {
         role: 'user',
@@ -57,5 +57,5 @@ export async function askGroundedQuestion(
   });
 
   const answer = response.choices?.[0]?.message?.content?.trim();
-  return answer || 'I could not find that in this note set.';
+  return answer || "I'm not sure from the notes alone, but I can still help explain it.";
 }
