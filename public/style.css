@@ -503,6 +503,58 @@ main {
   color: #444;
 }
 
+/* Notes Tab */
+#notes-container {
+  padding: 8px 0;
+}
+
+.notes-empty {
+  color: #888;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.notes-section {
+  margin-bottom: 28px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.notes-section-title {
+  margin: 0;
+  padding: 12px 16px;
+  background: #f0f4ff;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 1px solid #dde4f5;
+}
+
+.notes-section-body {
+  padding: 14px 16px;
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.notes-section-body p {
+  margin: 0 0 8px;
+}
+
+.notes-section-body p:last-child {
+  margin-bottom: 0;
+}
+
+.notes-section-body ul {
+  margin: 6px 0 8px 20px;
+  padding: 0;
+}
+
+.notes-section-body li {
+  margin-bottom: 4px;
+}
+
 /* Ask AI */
 .ask-ai-panel {
   border: 1px solid #e6e6e6;

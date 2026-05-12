@@ -127,6 +127,54 @@ function generateIdFromPath(filePath: string): string {
     .toLowerCase();
 }
 
+export interface NoteSection {
+  title: string;
+  summary: string; // prose/bullets, Q:/A: lines excluded
+}
+
+/**
+ * Parse ## sections from a markdown note, returning title and prose summary for each.
+ * Q:/A: lines and blank lines at the edges are excluded from the summary.
+ */
+export function parseSections(content: string): NoteSection[] {
+  // Skip frontmatter
+  let bodyStart = 0;
+  if (content.startsWith('---')) {
+    const end = content.indexOf('\n---', 4);
+    if (end !== -1) bodyStart = end + 4;
+  }
+
+  const lines = content.substring(bodyStart).split('\n');
+  const sections: NoteSection[] = [];
+  let currentTitle: string | null = null;
+  let summaryLines: string[] = [];
+
+  const flush = () => {
+    if (currentTitle === null) return;
+    // Remove Q:/A: lines and trim leading/trailing blank lines
+    const prose = summaryLines
+      .filter((l) => !l.trim().startsWith('Q:') && !l.trim().startsWith('A:'))
+      .join('\n')
+      .trim();
+    sections.push({ title: currentTitle, summary: prose });
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('## ')) {
+      flush();
+      currentTitle = trimmed.replace(/^##\s+/, '').trim();
+      summaryLines = [];
+    } else if (currentTitle !== null) {
+      summaryLines.push(line);
+    }
+    // Lines before the first ## (e.g. # heading) are ignored
+  }
+  flush();
+
+  return sections;
+}
+
 /**
  * Parse multiple markdown files and return their metadata
  */

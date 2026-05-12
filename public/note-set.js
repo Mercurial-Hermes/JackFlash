@@ -5,6 +5,7 @@
 let noteSetId = null;
 let flashcardSet = null;
 let progress = null;
+let sections = null;
 let currentCardId = null;
 let showingAnswer = false;
 let dueOnlyMode = false;
@@ -53,6 +54,15 @@ async function loadFlashcards() {
     }
     flashcardSet = await fcResponse.json();
 
+    // Load sections
+    const secResponse = await fetch(`/api/sections/${noteSetId}`);
+    if (secResponse.ok) {
+      const secData = await secResponse.json();
+      sections = secData.sections || [];
+    } else {
+      sections = [];
+    }
+
     // Load progress
     const progResponse = await fetch(`/api/progress/${noteSetId}`);
     if (!progResponse.ok) {
@@ -76,6 +86,7 @@ async function loadFlashcards() {
     }
 
     renderCard();
+    renderNotes();
   } catch (error) {
     console.error('Error loading flashcards:', error);
     displayError('Failed to load flashcards. Please try again.');
@@ -518,6 +529,47 @@ function setupKeyboardShortcuts() {
       goToNext();
     }
   });
+}
+
+/**
+ * Render section notes summaries in the Notes tab
+ */
+function renderNotes() {
+  const container = document.getElementById('notes-container');
+  if (!container) return;
+
+  if (!sections || sections.length === 0) {
+    container.innerHTML = '<p class="notes-empty">No section notes found.</p>';
+    return;
+  }
+
+  const html = sections
+    .map((sec) => {
+      // Convert bullet lines to <li> and other lines to <p>
+      const bodyHtml = sec.summary
+        .split('\n')
+        .filter((l) => l.trim() !== '')
+        .map((line) => {
+          const t = line.trim();
+          if (t.startsWith('- ') || t.startsWith('• ')) {
+            return `<li>${t.replace(/^[-•]\s+/, '')}</li>`;
+          }
+          return `<p>${t}</p>`;
+        })
+        .join('')
+        // Wrap consecutive <li> elements in <ul>
+        .replace(/(<li>.*?<\/li>)+/gs, (match) => `<ul>${match}</ul>`);
+
+      return `
+        <div class="notes-section">
+          <h3 class="notes-section-title">${sec.title}</h3>
+          <div class="notes-section-body">${bodyHtml}</div>
+        </div>
+      `;
+    })
+    .join('');
+
+  container.innerHTML = html;
 }
 
 /**

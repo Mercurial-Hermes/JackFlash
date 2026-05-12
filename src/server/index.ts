@@ -7,6 +7,7 @@ import { buildHierarchy } from './lib/hierarchyBuilder.js';
 import { readFile } from './lib/fileUtils.js';
 import { generateFlashcardSet } from './lib/flashcardGenerator.js';
 import { askGroundedQuestion, AiConfigError } from './lib/aiClient.js';
+import { parseSections } from './lib/noteParser.js';
 import {
   loadNoteSetProgress,
   recordAttempt,
@@ -110,6 +111,28 @@ app.get('/api/flashcards/:noteSetId', (req, res) => {
   } catch (error) {
     console.error('Error fetching flashcards:', error);
     res.status(500).json({ error: 'Failed to fetch flashcards' });
+  }
+});
+
+/**
+ * Get section summaries (prose notes, no Q/A) for a note set
+ */
+app.get('/api/sections/:noteSetId', (req, res) => {
+  try {
+    const { noteSetId } = req.params;
+
+    const noteMetadata = notesIndex.noteSets.find((n) => n.id === noteSetId);
+    if (!noteMetadata) {
+      return res.status(404).json({ error: 'Note set not found' });
+    }
+
+    const content = readFile(noteMetadata.path);
+    const sections = parseSections(content);
+
+    res.json({ noteSetId, sections });
+  } catch (error) {
+    console.error('Error fetching sections:', error);
+    res.status(500).json({ error: 'Failed to fetch sections' });
   }
 });
 
