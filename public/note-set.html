@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JackFlash - Flashcards</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>📚 JackFlash</h1>
+        <p id="note-title" style="margin: 0">Loading...</p>
+      </header>
+
+      <nav id="breadcrumbs" class="breadcrumbs">
+        <button id="breadcrumb-home" class="breadcrumb-btn">Home</button>
+      </nav>
+
+      <main id="main-content">
+        <div class="tabs">
+          <button id="tab-flashcards" class="tab-btn active" data-tab="flashcards">
+            📇 Flashcards
+          </button>
+          <button id="tab-ask-ai" class="tab-btn" data-tab="ask-ai">
+            💬 Ask AI
+          </button>
+        </div>
+
+        <!-- Flashcards Tab -->
+        <div id="tab-content-flashcards" class="tab-content active">
+          <div id="flashcard-container">
+            <p>Loading flashcards...</p>
+          </div>
+        </div>
+
+        <!-- Ask AI Tab -->
+        <div id="tab-content-ask-ai" class="tab-content">
+          <div class="ask-ai-panel">
+            <div class="ask-ai-header">
+              <h3>Ask About This Note Set</h3>
+              <p>Answers are grounded in this note set only.</p>
+            </div>
+
+            <div id="ask-ai-messages" class="ask-ai-messages">
+              <div class="ask-ai-empty">Ask a question to begin.</div>
+            </div>
+
+            <form id="ask-ai-form" class="ask-ai-form">
+              <input
+                id="ask-ai-input"
+                type="text"
+                placeholder="Ask a question about this topic..."
+                maxlength="1000"
+                required
+              />
+              <button id="ask-ai-send" class="btn btn-primary" type="submit">Ask</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/note-set.js"></script>
+  </body>
+</html>
