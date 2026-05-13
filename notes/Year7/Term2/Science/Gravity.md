@@ -55,3 +55,6 @@ A: It increases air resistance, reducing acceleration and lowering terminal spee
 
 Q: What happens when gravity and air resistance are balanced?
 A: The object falls at constant speed (no acceleration).
+
+Q: What is terminal speed?
+A: The maximum constant speed reached by a falling body when the force of gravity pulling it down is balanced by the air resistance pushing against it.
