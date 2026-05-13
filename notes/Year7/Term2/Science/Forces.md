@@ -28,7 +28,6 @@ A: A push or pull that can change an object's motion or shape.
 Q: Name two ways a force can change motion.
 A: Any two of: speed up, slow down, change direction, start motion, stop motion.
 
-
 ## Section 2: Contact and Non-Contact Forces
 
 **Contact forces** act when objects are touching.
