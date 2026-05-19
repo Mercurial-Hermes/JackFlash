@@ -280,7 +280,7 @@ function renderCard() {
         <span class="deck-pill">Upcoming: ${upcomingCount}</span>
       </div>
       <div class="progress-text">
-        <span>Card ${currentCardIndex + 1} of ${activeCards.length}</span>
+        <span>Card ${Math.min(sessionState.reviewedCardIds.size + 1, activeCards.length)} of ${activeCards.length}</span>
         <span id="card-score">${(cardProgress.performanceScore * 100).toFixed(0)}% score</span>
       </div>
       <div class="progress-bar">
