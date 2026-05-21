@@ -22,6 +22,9 @@ A: Iron, nickel, cobalt, or steel.
 Q: Name one non-magnetic substance.
 A: Plastic, wood, glass, aluminum, or rubber.
 
+Q: Are all metals attracted to magnets?
+A: No.  Iron, Nickel, Cobalt are examples of metals strongly attracted. Aluminium, Platinum are weakly attracted. Copper, Gold and Silver ... not at all. It comes down to electron behavior. In ferromagnetic (a material that can become strongly magnetized and is strongly attracted to magnet) metals, groups of atoms act like tiny magnets aligned in the same direction—so a magnet pulls on them strongly. In most other metals, those tiny magnetic effects cancel out.
+
 ## Section 2: Forces Between Magnets and Objects
 
 Magnets have north and south poles.
